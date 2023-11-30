@@ -15,11 +15,12 @@ rbac权限模型
 启动
 npm install
 
-开发
-npm run start:dev
+nodemon启动
+npm run dev
 
-生产（node启动）
+node启动
 npm run start
 
-pm2启动
-pm2 start src/main.js
+pm2启动(自行安装)
+npm install pm2 -G
+pm2 start src/main.js --name="koa-start"

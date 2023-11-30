@@ -24,6 +24,7 @@ const {
   APP_PORT,
   SEQUELIZE_LOGGING,
   REDIS_HOST,
+  APP_MODE,
 } = process.env
 
 module.exports = {
@@ -40,4 +41,5 @@ module.exports = {
   REDIS_HOST,
   PRIVATE_KEY,
   PUBLIC_KEY,
+  APP_MODE,
 }

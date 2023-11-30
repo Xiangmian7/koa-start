@@ -1,13 +1,17 @@
 const errorTypes = require('./error_types')
-const success = (ctx, msg, data) => {
-  ctx.statusCode = 200
-  ctx.body = {
-    msg,
+const success = (ctx, data) => {
+  const res = {
+    code: 200,
+    status: 'success',
     data,
   }
+  ctx.body = res
+  ctx.state.status = 'success'
+  ctx.state.res = res
 }
 
 const fail = (ctx, err) => {
+  console.log(err.message)
   let code
   let msg
   if (!err.details?.length) {
@@ -34,17 +38,22 @@ const fail = (ctx, err) => {
         break
       default:
         code = 500
-        msg = errorTypes.InternalServerError.message
+        msg = err.message
         break
     }
   } else {
     code = 400
     msg = err.details[0].message
   }
-  ctx.status = code
-  ctx.body = {
+  const res = {
+    code,
     msg,
+    status: 'error',
+    data: null,
   }
+  ctx.body = res
+  ctx.state.status = 'error'
+  ctx.state.res = res
 }
 
 module.exports = { success, fail }

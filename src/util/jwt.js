@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const { PUBLIC_KEY, PRIVATE_KEY } = require('../initialize/config')
-const makeToken = (id, username) => {
-  return jwt.sign({ id, username }, PRIVATE_KEY, {
+const makeToken = (id, roleId, username) => {
+  return jwt.sign({ id, roleId, username }, PRIVATE_KEY, {
     expiresIn: '12h',
     algorithm: 'RS256',
   })

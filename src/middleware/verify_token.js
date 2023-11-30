@@ -9,8 +9,8 @@ const verifyToken = async (ctx, next) => {
     throw errorTypes.UnAuthorized
   }
   //token解析
-  const { id, username } = parseToken(tokenString)
-  ctx.state.user = { id, username }
+  const { id, roleId, username } = parseToken(tokenString)
+  ctx.state.user = { id, roleId, username }
   //储存用户信息
   await next()
 }

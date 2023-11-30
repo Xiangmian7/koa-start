@@ -1,6 +1,8 @@
 const { Sequelize } = require('sequelize')
 const config = require('./config')
 
+console.log(config.SEQUELIZE_LOGGING === 'true')
+
 const sequelize = new Sequelize(
   config.MYSQL_DATABASE,
   config.MYSQL_USER,
@@ -11,6 +13,11 @@ const sequelize = new Sequelize(
     dialect: 'mysql',
     logging: config.SEQUELIZE_LOGGING === 'true',
     timezone: '+08:00',
+    pool: { max: 5, min: 0, idle: 10000 },
+    dialectOptions: {
+      dateStrings: true,
+      typeCast: true,
+    },
   },
 )
 
@@ -25,9 +32,9 @@ const sequelize = new Sequelize(
 ;(async () => {
   try {
     await sequelize.sync()
-    console.log('模型同步成功')
+    console.log('sequelize模型同步成功')
   } catch (error) {
-    console.log('模型同步失败')
+    console.log('sequelize模型同步失败')
   }
 })()
 
